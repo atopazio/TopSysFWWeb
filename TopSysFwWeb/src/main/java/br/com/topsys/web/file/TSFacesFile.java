@@ -6,10 +6,12 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.topsys.exception.TSSystemException;
+
 /**
- * Essa Classe ï¿½ usada para manipular arquivos. 
+ * Essa Classe é usada para manipular arquivos. 
  * 
- * @author Andrï¿½ Monteiro
+ * @author André Monteiro
  */
 public final class TSFacesFile {
 	
@@ -29,7 +31,7 @@ public final class TSFacesFile {
 			FacesContext.getCurrentInstance().responseComplete();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new TSSystemException(e);
 
 		}
 	}

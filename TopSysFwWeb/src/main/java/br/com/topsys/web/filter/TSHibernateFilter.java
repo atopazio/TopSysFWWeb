@@ -9,79 +9,62 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hibernate.SessionFactory;
-import org.hibernate.StaleObjectStateException;
 
-import br.com.topsys.util.TSHibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-/**
- * 
- * @author andre.topazio
- * 
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
- */
-public final class TSHibernateFilter implements Filter {
+import br.com.cenajur.util.TSHibernateUtil;
 
-	private SessionFactory sf = null;
-
-	private static Log log = LogFactory.getLog(TSHibernateFilter.class);
-
-	public void init(FilterConfig filterConfig) throws ServletException {
-		this.sf = TSHibernateUtil.getSessionFactory();
-		log.info("Servlet filter init the Framework TopSys, now opening/closing a Session for each request.");
-
-	}
-
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
-
-
-		try {
-			sf.getCurrentSession().beginTransaction();
-			
-			chain.doFilter(request, response);
-			
-			if(sf.getCurrentSession().getTransaction().isActive()){
-				sf.getCurrentSession().getTransaction().commit();
-			}
-				
-
-		} catch (StaleObjectStateException staleEx) {
-			log
-					.error("This interceptor does not implement optimistic concurrency control!");
-			log
-					.error("Your application will not work until you add compensation actions!");
+public class TSHibernateFilter implements Filter {
+	
+	
 		
-			throw staleEx;
-		} catch (RuntimeException ex) {
-			// Rollback only
-			log.info("roolback------------>"+ ex.getMessage());
 
-			ex.printStackTrace();
+		public void doFilter(ServletRequest request, ServletResponse response,
+				FilterChain chain) throws IOException, ServletException {
+			
+			Session session = TSHibernateUtil.getSession();
+			Transaction tx =null;
+			
 			try {
-				if (sf.getCurrentSession().getTransaction().isActive()) {
-					log
-							.debug("Trying to rollback database transaction after exception");
-					sf.getCurrentSession().getTransaction().rollback();
+				tx = session.beginTransaction();
+				
+				chain.doFilter(request, response);
+				
+				if(tx.isActive()){
+					tx.commit();
 				}
-			} catch (RuntimeException rbEx) {
-				log.error("Could not rollback transaction after exception!",
-						rbEx);
-			}
+					
+			
+			} catch (RuntimeException ex) {
+				
+				ex.printStackTrace();
+				try {
+					if (tx.isActive()) {
+						System.err.println("Trying to rollback database transaction after exception");
+						tx.rollback();
+					}
+				} catch (RuntimeException rbEx) {
+					System.err.println("Could not rollback transaction after exception!"+
+							rbEx.getMessage());
+				}
 
+				
+			}finally{
+				//session.close();
+			}
 			
 		}
-		//finally{
-			
-		//	sf.getCurrentSession().close();
-			
-		//}
-	}
 
-	public void destroy() {
-		sf.close();
-	}
+		public void destroy() {
+			TSHibernateUtil.getSessionFactory().close();
+		}
+
+		@Override
+		public void init(FilterConfig arg0) throws ServletException {
+			// TODO Auto-generated method stub
+			
+		}
+	
+
 }

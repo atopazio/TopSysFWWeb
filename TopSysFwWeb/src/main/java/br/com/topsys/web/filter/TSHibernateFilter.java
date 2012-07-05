@@ -13,7 +13,9 @@ import javax.servlet.ServletResponse;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import br.com.cenajur.util.TSHibernateUtil;
+import br.com.topsys.util.TSHibernateUtil;
+
+
 
 public class TSHibernateFilter implements Filter {
 	
@@ -60,7 +62,6 @@ public class TSHibernateFilter implements Filter {
 			TSHibernateUtil.getSessionFactory().close();
 		}
 
-		@Override
 		public void init(FilterConfig arg0) throws ServletException {
 			// TODO Auto-generated method stub
 			

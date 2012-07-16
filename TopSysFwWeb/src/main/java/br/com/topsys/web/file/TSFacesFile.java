@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Essa Classe ï¿½ usada para manipular arquivos. 
  * 
- * @author Andrï¿½ Monteiro
+ * @author André Monteiro
  */
 public final class TSFacesFile {
 	

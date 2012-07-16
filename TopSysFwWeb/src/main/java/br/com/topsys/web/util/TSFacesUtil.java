@@ -24,7 +24,7 @@ import br.com.topsys.util.TSUtil;
 
 
 /**
- * @author Andrï¿½ Topï¿½zio
+ * @author André Topázio
  *
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
@@ -193,7 +193,7 @@ public final class TSFacesUtil {
 	    	try {
 	      		text = bundle.getString(key);
 	    	} catch (Exception e) {
-	    		TSLogUtil.getInstance().warning("Nï¿½o existe essa chave no Message.properties! "+key);
+	    		TSLogUtil.getInstance().warning("Não existe essa chave no Message.properties! "+key);
 	    		text = e.getMessage();
 	    	}
 	    return text;	
@@ -338,7 +338,7 @@ public final class TSFacesUtil {
 
 		if (TSUtil.isEmpty(lista)) {
 
-			TSFacesUtil.addInfoMessage("A pesquisa nÃ£o retornou nenhuma ocorrÃªncia");
+			TSFacesUtil.addInfoMessage("A pesquisa não retornou nenhuma ocorrência");
 
 		} else {
 
@@ -346,11 +346,11 @@ public final class TSFacesUtil {
 
 			if (tamanho.equals(1)) {
 
-				TSFacesUtil.addInfoMessage("A pesquisa retornou 1 ocorrÃªncia");
+				TSFacesUtil.addInfoMessage("A pesquisa retornou 1 ocorrência");
 
 			} else {
 
-				TSFacesUtil.addInfoMessage("A pesquisa retornou " + tamanho + " ocorrÃªncias");
+				TSFacesUtil.addInfoMessage("A pesquisa retornou " + tamanho + " ocorrências");
 
 			}
 
@@ -362,7 +362,7 @@ public final class TSFacesUtil {
 
 		if (TSUtil.isEmpty(lista)) {
 
-			TSFacesUtil.addInfoMessage(destino, "A pesquisa nÃ£o retornou nenhuma ocorrÃªncia");
+			TSFacesUtil.addInfoMessage(destino, "A pesquisa não retornou nenhuma ocorrência");
 
 		} else {
 
@@ -370,11 +370,11 @@ public final class TSFacesUtil {
 
 			if (tamanho.equals(1)) {
 
-				TSFacesUtil.addInfoMessage(destino, "A pesquisa retornou 1 ocorrÃªncia");
+				TSFacesUtil.addInfoMessage(destino, "A pesquisa retornou 1 ocorrência");
 
 			} else {
 
-				TSFacesUtil.addInfoMessage(destino, "A pesquisa retornou " + tamanho + " ocorrÃªncias");
+				TSFacesUtil.addInfoMessage(destino, "A pesquisa retornou " + tamanho + " ocorrências");
 
 			}
 

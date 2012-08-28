@@ -73,7 +73,8 @@ public abstract class TSMainFaces  {
 	}
 
 	protected final void addErrorMessage(String msg) {
-		TSFacesUtil.addErrorMessage(msg);
+		TSFacesUtil.addErrorMessage(msg.replaceAll("topsys", "atarde")); 
+		// TODO Alteração feita para o jornal, pelos inumeros bugs na ADM para não queimar a imagem da TopSys IT Solutions. Solicitado por Roque Souza.
 	}
 
 	protected final void addErrorMessageKey(String msg) {
@@ -110,21 +111,7 @@ public abstract class TSMainFaces  {
 	}
 	
 	protected final List<SelectItem> initCombo(Collection coll,String nomeValue,String nomeLabel) {
-		List<SelectItem> list=new ArrayList<SelectItem>();
-		
-		for(Object o:coll){
-			try {
-			
-				list.add(new SelectItem(BeanUtils.getProperty(o,nomeValue),BeanUtils.getProperty(o,nomeLabel)));
-			
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-				throw new TSSystemException(e);
-			} 
-		}
-		return list;
+		return TSFacesUtil.initCombo(coll, nomeValue, nomeLabel);
 	}
 
 	public final String insertEvent() {
@@ -154,11 +141,13 @@ public abstract class TSMainFaces  {
 		
 		} catch (TSSystemException e) {
 			e.printStackTrace();
+			//this.addErrorMessage("Verifique o log, pois ocorreu um erro no sistema!");
 			this.addErrorMessage(e.getMessage());
 			
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			//this.addErrorMessage("Verifique o log, pois ocorreu um erro no sistema!");
 			this.addErrorMessage(e.getMessage());
 			
 		}
@@ -198,12 +187,12 @@ public abstract class TSMainFaces  {
 		} catch (TSSystemException e) {
 			e.printStackTrace();
 			this.addErrorMessage(e.getMessage());
-			
+			//this.addErrorMessage("Verifique o log, pois ocorreu um erro no sistema!");
 		
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.addErrorMessage(e.getMessage());
-			
+			//this.addErrorMessage("Verifique o log, pois ocorreu um erro no sistema!");
 		}
 		return retorno;
 	}
@@ -229,12 +218,12 @@ public abstract class TSMainFaces  {
 		} catch (TSSystemException e) {
 			e.printStackTrace();
 			this.addErrorMessage(e.getMessage());
-			
+			//this.addErrorMessage("Verifique o log, pois ocorreu um erro no sistema!");
 		
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.addErrorMessage(e.getMessage());
-			
+			//this.addErrorMessage("Verifique o log, pois ocorreu um erro no sistema!");
 		}
 		return retorno;
 	}
@@ -251,12 +240,12 @@ public abstract class TSMainFaces  {
 		} catch (TSSystemException e) {
 			e.printStackTrace();
 			this.addErrorMessage(e.getMessage());
-			
+			//this.addErrorMessage("Verifique o log, pois ocorreu um erro no sistema!");
 		
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.addErrorMessage(e.getMessage());
-			
+			//this.addErrorMessage("Verifique o log, pois ocorreu um erro no sistema!");
 		}
 		return retorno;
 	}
@@ -269,12 +258,12 @@ public abstract class TSMainFaces  {
 		} catch (TSSystemException e) {
 			e.printStackTrace();
 			this.addErrorMessage(e.getMessage());
-			
+			//this.addErrorMessage("Verifique o log, pois ocorreu um erro no sistema!");
 		
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.addErrorMessage(e.getMessage());
-			
+			//this.addErrorMessage("Verifique o log, pois ocorreu um erro no sistema!");
 		}
 		return retorno;
 	}
@@ -289,12 +278,12 @@ public abstract class TSMainFaces  {
 		} catch (TSSystemException e) {
 			e.printStackTrace();
 			this.addErrorMessage(e.getMessage());
-			
+			//this.addErrorMessage("Verifique o log, pois ocorreu um erro no sistema!");
 		
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.addErrorMessage(e.getMessage());
-			
+			//this.addErrorMessage("Verifique o log, pois ocorreu um erro no sistema!");
 		}
 		return retorno;
 	}
@@ -312,12 +301,12 @@ public abstract class TSMainFaces  {
 		} catch (TSSystemException e) {
 			e.printStackTrace();
 			this.addErrorMessage(e.getMessage());
-			
+			//this.addErrorMessage("Verifique o log, pois ocorreu um erro no sistema!");
 		
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.addErrorMessage(e.getMessage());
-			
+			//this.addErrorMessage("Verifique o log, pois ocorreu um erro no sistema!");
 		}
 		return retorno;
 	}

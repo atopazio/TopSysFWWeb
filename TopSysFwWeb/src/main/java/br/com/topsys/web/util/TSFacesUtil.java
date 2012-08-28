@@ -3,6 +3,8 @@ package br.com.topsys.web.util;
 
 
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -12,12 +14,16 @@ import javax.faces.application.ApplicationFactory;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
+import javax.faces.model.SelectItem;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.beanutils.BeanUtils;
+
+import br.com.topsys.exception.TSSystemException;
 import br.com.topsys.util.TSLogUtil;
 import br.com.topsys.util.TSUtil;
 
@@ -39,6 +45,24 @@ public final class TSFacesUtil {
 	    bundle =
 			ResourceBundle.getBundle("config.Messages");
 	    TSLogUtil.getInstance().info("config.Messages foi instanciado!");
+	}
+	
+	public static List<SelectItem> initCombo(Collection coll,String nomeValue,String nomeLabel) {
+		List<SelectItem> list=new ArrayList<SelectItem>();
+		
+		for(Object o:coll){
+			try {
+			
+				list.add(new SelectItem(BeanUtils.getProperty(o,nomeValue),BeanUtils.getProperty(o,nomeLabel)));
+			
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+				
+				throw new TSSystemException(e);
+			} 
+		}
+		return list;
 	}
 
     /**

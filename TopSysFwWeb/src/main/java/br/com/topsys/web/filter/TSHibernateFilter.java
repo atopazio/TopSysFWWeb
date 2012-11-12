@@ -10,41 +10,35 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.SessionFactory;
 
+
+import br.com.topsys.exception.TSSystemException;
 import br.com.topsys.util.TSHibernateUtil;
-
-
 
 public class TSHibernateFilter implements Filter {
 	
-	
+	private SessionFactory sessionFactory;
 		
 
 		public void doFilter(ServletRequest request, ServletResponse response,
 				FilterChain chain) throws IOException, ServletException {
 			
-			Session session = TSHibernateUtil.getSession();
-			Transaction tx =null;
 			
 			try {
-				tx = session.beginTransaction();
+				sessionFactory.getCurrentSession().getTransaction().commit();
 				
 				chain.doFilter(request, response);
 				
-				if(tx.isActive()){
-					tx.commit();
-				}
+				sessionFactory.getCurrentSession().getTransaction().commit();
 					
 			
-			} catch (RuntimeException ex) {
+			} catch (TSSystemException ex) {
 				
-				ex.printStackTrace();
 				try {
-					if (tx.isActive()) {
+					if (sessionFactory.getCurrentSession().getTransaction().isActive()) {
 						System.err.println("Trying to rollback database transaction after exception");
-						tx.rollback();
+						sessionFactory.getCurrentSession().getTransaction().rollback();
 					}
 				} catch (RuntimeException rbEx) {
 					System.err.println("Could not rollback transaction after exception!"+
@@ -52,8 +46,6 @@ public class TSHibernateFilter implements Filter {
 				}
 
 				
-			}finally{
-				//session.close();
 			}
 			
 		}
@@ -63,7 +55,7 @@ public class TSHibernateFilter implements Filter {
 		}
 
 		public void init(FilterConfig arg0) throws ServletException {
-			// TODO Auto-generated method stub
+			sessionFactory = TSHibernateUtil.getSessionFactory();
 			
 		}
 	

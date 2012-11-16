@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-
 import org.hibernate.SessionFactory;
 
 
@@ -26,7 +25,7 @@ public class TSHibernateFilter implements Filter {
 			
 			
 			try {
-				sessionFactory.getCurrentSession().getTransaction().commit();
+				sessionFactory.getCurrentSession().beginTransaction();
 				
 				chain.doFilter(request, response);
 				

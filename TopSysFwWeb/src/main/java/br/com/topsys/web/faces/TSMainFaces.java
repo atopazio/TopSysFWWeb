@@ -28,7 +28,12 @@ import br.com.topsys.web.util.TSFacesUtil;
  * TODO To change the template for this generated type comment go to Window -
  * Preferences - Java - Code Style - Code Templates
  */
-public abstract class TSMainFaces  {
+public abstract class TSMainFaces implements Serializable  {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private boolean insertDisabled;
 
 	private boolean updateDisabled;
@@ -141,13 +146,13 @@ public abstract class TSMainFaces  {
 		
 		} catch (TSSystemException e) {
 			e.printStackTrace();
-			//this.addErrorMessage("Verifique o log, pois ocorreu um erro no sistema!");
+			
 			this.addErrorMessage(e.getMessage());
 			
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			//this.addErrorMessage("Verifique o log, pois ocorreu um erro no sistema!");
+			
 			this.addErrorMessage(e.getMessage());
 			
 		}

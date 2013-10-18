@@ -159,7 +159,7 @@ public abstract class TSMainFaces implements Serializable  {
 		return retorno;
 	}
 
-	private void throwException(Exception e) {
+	protected void throwException(Exception e) {
 		if (e instanceof TSDataBaseException){
 			this.addErrorMessage(e.getMessage());
 		}else{

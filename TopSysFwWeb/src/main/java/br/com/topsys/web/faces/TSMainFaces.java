@@ -78,8 +78,7 @@ public abstract class TSMainFaces implements Serializable  {
 	}
 
 	protected final void addErrorMessage(String msg) {
-		TSFacesUtil.addErrorMessage(msg.replaceAll("topsys", "atarde")); 
-		// TODO Alteração feita para o jornal, pelos inumeros bugs na ADM para não queimar a imagem da TopSys IT Solutions. Solicitado por Roque Souza.
+		TSFacesUtil.addErrorMessage(msg); 
 	}
 
 	protected final void addErrorMessageKey(String msg) {

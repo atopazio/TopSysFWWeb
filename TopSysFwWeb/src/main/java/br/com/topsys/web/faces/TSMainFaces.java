@@ -18,6 +18,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import br.com.topsys.exception.TSApplicationException;
 import br.com.topsys.exception.TSDataBaseException;
+import br.com.topsys.exception.TSMessageBusinessException;
 import br.com.topsys.exception.TSSystemException;
 import br.com.topsys.web.util.TSFacesUtil;
 
@@ -159,12 +160,11 @@ public abstract class TSMainFaces implements Serializable  {
 	}
 
 	protected void throwException(Exception e) {
-		if (e instanceof TSDataBaseException){
+		if (e instanceof TSDataBaseException || e instanceof TSMessageBusinessException){
 			this.addErrorMessage(e.getMessage());
 		}else{
 			this.addErrorMessageKey(e.getMessage());
 		}
-		
 	}
 
 
